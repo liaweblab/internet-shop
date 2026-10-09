@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтернет-магазин</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eeeeee;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Інтернет-магазин</h1>
+
+    <p>
+        Предметна область: система обліку товарів, клієнтів
+        та замовлень інтернет-магазину.
+    </p>
+
+    <!-- Таби для перемикання таблиць -->
+    <div>
+        <button onclick="showTab('products')">Товари</button>
+        <button onclick="showTab('clients')">Клієнти</button>
+        <button onclick="showTab('orders')">Замовлення</button>
+    </div>
+
+
+    <!-- Сутність 1. Товари -->
+    <div id="products" class="tab-content active">
+
+        <h2>Товари</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Категорія</th>
+                    <th>Ціна</th>
+                    <th>Бренд</th>
+                    <th>Кількість</th>
+                    <th>Рейтинг</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ноутбук IdeaPad</td>
+                    <td>Ноутбуки</td>
+                    <td>28000 грн</td>
+                    <td>Lenovo</td>
+                    <td>12</td>
+                    <td>4.8</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Смартфон Galaxy A55</td>
+                    <td>Смартфони</td>
+                    <td>17000 грн</td>
+                    <td>Samsung</td>
+                    <td>20</td>
+                    <td>4.7</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Навушники AirPods</td>
+                    <td>Аудіо</td>
+                    <td>7500 грн</td>
+                    <td>Apple</td>
+                    <td>15</td>
+                    <td>4.9</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- Сутність 2. Клієнти -->
+    <div id="clients" class="tab-content">
+
+        <h2>Клієнти</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ПІБ</th>
+                    <th>Телефон</th>
+                    <th>E-mail</th>
+                    <th>Місто</th>
+                    <th>Дата реєстрації</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Іваненко Олена Сергіївна</td>
+                    <td>+380501234567</td>
+                    <td>olena@example.com</td>
+                    <td>Одеса</td>
+                    <td>15.09.2026</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Петренко Андрій Олегович</td>
+                    <td>+380671234567</td>
+                    <td>andrii@example.com</td>
+                    <td>Київ</td>
+                    <td>18.09.2026</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Коваленко Марія Ігорівна</td>
+                    <td>+380931234567</td>
+                    <td>maria@example.com</td>
+                    <td>Львів</td>
+                    <td>22.09.2026</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- Сутність 3. Замовлення -->
+    <div id="orders" class="tab-content">
+
+        <h2>Замовлення</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Клієнт</th>
+                    <th>Товар</th>
+                    <th>Кількість</th>
+                    <th>Сума</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>Іваненко Олена Сергіївна</td>
+                    <td>Ноутбук IdeaPad</td>
+                    <td>1</td>
+                    <td>28000 грн</td>
+                    <td>25.09.2026</td>
+                    <td>Виконано</td>
+                </tr>
+
+                <tr>
+                    <td>102</td>
+                    <td>Петренко Андрій Олегович</td>
+                    <td>Смартфон Galaxy A55</td>
+                    <td>1</td>
+                    <td>17000 грн</td>
+                    <td>27.09.2026</td>
+                    <td>Відправлено</td>
+                </tr>
+
+                <tr>
+                    <td>103</td>
+                    <td>Коваленко Марія Ігорівна</td>
+                    <td>Навушники AirPods</td>
+                    <td>2</td>
+                    <td>15000 грн</td>
+                    <td>29.09.2026</td>
+                    <td>Обробляється</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
