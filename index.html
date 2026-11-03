@@ -14,7 +14,7 @@
 
         button {
             padding: 10px 20px;
-            margin-right: 5px;
+            margin: 5px;
             cursor: pointer;
         }
 
@@ -41,6 +41,17 @@
         .active {
             display: block;
         }
+
+        .add-form {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #999;
+        }
+
+        .add-form input {
+            padding: 7px;
+            margin: 5px;
+        }
     </style>
 </head>
 
@@ -53,7 +64,7 @@
         та замовлень інтернет-магазину.
     </p>
 
-    <!-- Таби для перемикання таблиць -->
+    <!-- Таби -->
     <div>
         <button onclick="showTab('products')">Товари</button>
         <button onclick="showTab('clients')">Клієнти</button>
@@ -61,7 +72,7 @@
     </div>
 
 
-    <!-- Сутність 1. Товари -->
+    <!-- ТОВАРИ -->
     <div id="products" class="tab-content active">
 
         <h2>Товари</h2>
@@ -79,7 +90,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="productsTable">
                 <tr>
                     <td>1</td>
                     <td>Ноутбук IdeaPad</td>
@@ -112,10 +123,24 @@
             </tbody>
         </table>
 
+        <div class="add-form">
+            <h3>Додати новий товар</h3>
+
+            <input id="productId" type="number" placeholder="ID">
+            <input id="productName" type="text" placeholder="Назва">
+            <input id="productCategory" type="text" placeholder="Категорія">
+            <input id="productPrice" type="number" placeholder="Ціна">
+            <input id="productBrand" type="text" placeholder="Бренд">
+            <input id="productQuantity" type="number" placeholder="Кількість">
+            <input id="productRating" type="number" step="0.1" placeholder="Рейтинг">
+
+            <button onclick="addProduct()">Додати товар</button>
+        </div>
+
     </div>
 
 
-    <!-- Сутність 2. Клієнти -->
+    <!-- КЛІЄНТИ -->
     <div id="clients" class="tab-content">
 
         <h2>Клієнти</h2>
@@ -132,7 +157,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="clientsTable">
                 <tr>
                     <td>1</td>
                     <td>Іваненко Олена Сергіївна</td>
@@ -162,10 +187,23 @@
             </tbody>
         </table>
 
+        <div class="add-form">
+            <h3>Додати нового клієнта</h3>
+
+            <input id="clientId" type="number" placeholder="ID">
+            <input id="clientName" type="text" placeholder="ПІБ">
+            <input id="clientPhone" type="text" placeholder="Телефон">
+            <input id="clientEmail" type="email" placeholder="E-mail">
+            <input id="clientCity" type="text" placeholder="Місто">
+            <input id="clientDate" type="date">
+
+            <button onclick="addClient()">Додати клієнта</button>
+        </div>
+
     </div>
 
 
-    <!-- Сутність 3. Замовлення -->
+    <!-- ЗАМОВЛЕННЯ -->
     <div id="orders" class="tab-content">
 
         <h2>Замовлення</h2>
@@ -183,7 +221,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="ordersTable">
                 <tr>
                     <td>101</td>
                     <td>Іваненко Олена Сергіївна</td>
@@ -215,6 +253,20 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="add-form">
+            <h3>Додати нове замовлення</h3>
+
+            <input id="orderId" type="number" placeholder="ID">
+            <input id="orderClient" type="text" placeholder="Клієнт">
+            <input id="orderProduct" type="text" placeholder="Товар">
+            <input id="orderQuantity" type="number" placeholder="Кількість">
+            <input id="orderSum" type="number" placeholder="Сума">
+            <input id="orderDate" type="date">
+            <input id="orderStatus" type="text" placeholder="Статус">
+
+            <button onclick="addOrder()">Додати замовлення</button>
+        </div>
 
     </div>
 
