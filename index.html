@@ -52,6 +52,14 @@
             padding: 7px;
             margin: 5px;
         }
+
+        .delete-button {
+            padding: 5px 10px;
+        }
+
+        .edit-button {
+            padding: 5px 10px;
+        }
     </style>
 </head>
 
@@ -64,7 +72,6 @@
         та замовлень інтернет-магазину.
     </p>
 
-    <!-- Таби -->
     <div>
         <button onclick="showTab('products')">Товари</button>
         <button onclick="showTab('clients')">Клієнти</button>
@@ -72,7 +79,6 @@
     </div>
 
 
-    <!-- ТОВАРИ -->
     <div id="products" class="tab-content active">
 
         <h2>Товари</h2>
@@ -87,6 +93,7 @@
                     <th>Бренд</th>
                     <th>Кількість</th>
                     <th>Рейтинг</th>
+                    <th>Дії</th>
                 </tr>
             </thead>
 
@@ -99,6 +106,10 @@
                     <td>Lenovo</td>
                     <td>12</td>
                     <td>4.8</td>
+                    <td>
+                        <button class="edit-button" onclick="editProduct(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteProduct(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -109,6 +120,10 @@
                     <td>Samsung</td>
                     <td>20</td>
                     <td>4.7</td>
+                    <td>
+                        <button class="edit-button" onclick="editProduct(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteProduct(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -119,12 +134,16 @@
                     <td>Apple</td>
                     <td>15</td>
                     <td>4.9</td>
+                    <td>
+                        <button class="edit-button" onclick="editProduct(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteProduct(this)">❌</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="add-form">
-            <h3>Додати новий товар</h3>
+            <h3>Додати або редагувати товар</h3>
 
             <input id="productId" type="number" placeholder="ID">
             <input id="productName" type="text" placeholder="Назва">
@@ -134,13 +153,12 @@
             <input id="productQuantity" type="number" placeholder="Кількість">
             <input id="productRating" type="number" step="0.1" placeholder="Рейтинг">
 
-            <button onclick="addProduct()">Додати товар</button>
+            <button id="productButton" onclick="saveProduct()">Додати товар</button>
         </div>
 
     </div>
 
 
-    <!-- КЛІЄНТИ -->
     <div id="clients" class="tab-content">
 
         <h2>Клієнти</h2>
@@ -154,6 +172,7 @@
                     <th>E-mail</th>
                     <th>Місто</th>
                     <th>Дата реєстрації</th>
+                    <th>Дії</th>
                 </tr>
             </thead>
 
@@ -165,6 +184,10 @@
                     <td>olena@example.com</td>
                     <td>Одеса</td>
                     <td>15.09.2026</td>
+                    <td>
+                        <button class="edit-button" onclick="editClient(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteClient(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -174,6 +197,10 @@
                     <td>andrii@example.com</td>
                     <td>Київ</td>
                     <td>18.09.2026</td>
+                    <td>
+                        <button class="edit-button" onclick="editClient(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteClient(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -183,12 +210,16 @@
                     <td>maria@example.com</td>
                     <td>Львів</td>
                     <td>22.09.2026</td>
+                    <td>
+                        <button class="edit-button" onclick="editClient(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteClient(this)">❌</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="add-form">
-            <h3>Додати нового клієнта</h3>
+            <h3>Додати або редагувати клієнта</h3>
 
             <input id="clientId" type="number" placeholder="ID">
             <input id="clientName" type="text" placeholder="ПІБ">
@@ -197,13 +228,12 @@
             <input id="clientCity" type="text" placeholder="Місто">
             <input id="clientDate" type="date">
 
-            <button onclick="addClient()">Додати клієнта</button>
+            <button id="clientButton" onclick="saveClient()">Додати клієнта</button>
         </div>
 
     </div>
 
 
-    <!-- ЗАМОВЛЕННЯ -->
     <div id="orders" class="tab-content">
 
         <h2>Замовлення</h2>
@@ -218,6 +248,7 @@
                     <th>Сума</th>
                     <th>Дата</th>
                     <th>Статус</th>
+                    <th>Дії</th>
                 </tr>
             </thead>
 
@@ -230,6 +261,10 @@
                     <td>28000 грн</td>
                     <td>25.09.2026</td>
                     <td>Виконано</td>
+                    <td>
+                        <button class="edit-button" onclick="editOrder(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteOrder(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -240,6 +275,10 @@
                     <td>17000 грн</td>
                     <td>27.09.2026</td>
                     <td>Відправлено</td>
+                    <td>
+                        <button class="edit-button" onclick="editOrder(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteOrder(this)">❌</button>
+                    </td>
                 </tr>
 
                 <tr>
@@ -250,12 +289,16 @@
                     <td>15000 грн</td>
                     <td>29.09.2026</td>
                     <td>Обробляється</td>
+                    <td>
+                        <button class="edit-button" onclick="editOrder(this)">Редагувати</button>
+                        <button class="delete-button" onclick="deleteOrder(this)">❌</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="add-form">
-            <h3>Додати нове замовлення</h3>
+            <h3>Додати або редагувати замовлення</h3>
 
             <input id="orderId" type="number" placeholder="ID">
             <input id="orderClient" type="text" placeholder="Клієнт">
@@ -265,11 +308,10 @@
             <input id="orderDate" type="date">
             <input id="orderStatus" type="text" placeholder="Статус">
 
-            <button onclick="addOrder()">Додати замовлення</button>
+            <button id="orderButton" onclick="saveOrder()">Додати замовлення</button>
         </div>
 
     </div>
-
 
     <script src="script.js"></script>
 
