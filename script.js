@@ -2,6 +2,7 @@ let editingProductRow = null;
 let editingClientRow = null;
 let editingOrderRow = null;
 
+
 function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
 
@@ -38,6 +39,7 @@ function saveProduct() {
 
         editingProductRow = null;
         document.getElementById('productButton').textContent = 'Додати товар';
+
     } else {
         const table = document.getElementById('productsTable');
         const row = table.insertRow();
@@ -51,11 +53,13 @@ function saveProduct() {
         row.insertCell(6).textContent = rating;
 
         const actions = row.insertCell(7);
+
         actions.innerHTML =
             '<button class="edit-button" onclick="editProduct(this)">Редагувати</button>' +
             '<button class="delete-button" onclick="deleteProduct(this)">❌</button>';
     }
 
+    saveData();
     clearProductForm();
 }
 
@@ -85,13 +89,16 @@ function deleteProduct(button) {
     const orders = document.querySelectorAll('#ordersTable tr');
 
     for (const order of orders) {
-        if (order.cells[2].textContent === productName) {
-            alert('Неможливо видалити товар. Він використовується в таблиці «Замовлення».');
+        if (order.cells[2] && order.cells[2].textContent === productName) {
+            alert(
+                'Неможливо видалити товар. Він використовується в таблиці «Замовлення».'
+            );
             return;
         }
     }
 
     row.remove();
+    saveData();
 }
 
 
@@ -129,6 +136,7 @@ function saveClient() {
 
         editingClientRow = null;
         document.getElementById('clientButton').textContent = 'Додати клієнта';
+
     } else {
         const table = document.getElementById('clientsTable');
         const row = table.insertRow();
@@ -141,11 +149,13 @@ function saveClient() {
         row.insertCell(5).textContent = formatDate(date);
 
         const actions = row.insertCell(6);
+
         actions.innerHTML =
             '<button class="edit-button" onclick="editClient(this)">Редагувати</button>' +
             '<button class="delete-button" onclick="deleteClient(this)">❌</button>';
     }
 
+    saveData();
     clearClientForm();
 }
 
@@ -160,6 +170,7 @@ function editClient(button) {
     document.getElementById('clientPhone').value = row.cells[2].textContent;
     document.getElementById('clientEmail').value = row.cells[3].textContent;
     document.getElementById('clientCity').value = row.cells[4].textContent;
+
     document.getElementById('clientDate').value =
         dateForInput(row.cells[5].textContent);
 
@@ -174,13 +185,16 @@ function deleteClient(button) {
     const orders = document.querySelectorAll('#ordersTable tr');
 
     for (const order of orders) {
-        if (order.cells[1].textContent === clientName) {
-            alert('Неможливо видалити клієнта. Його дані використовуються в таблиці «Замовлення».');
+        if (order.cells[1] && order.cells[1].textContent === clientName) {
+            alert(
+                'Неможливо видалити клієнта. Його дані використовуються в таблиці «Замовлення».'
+            );
             return;
         }
     }
 
     row.remove();
+    saveData();
 }
 
 
@@ -219,6 +233,7 @@ function saveOrder() {
 
         editingOrderRow = null;
         document.getElementById('orderButton').textContent = 'Додати замовлення';
+
     } else {
         const table = document.getElementById('ordersTable');
         const row = table.insertRow();
@@ -232,11 +247,13 @@ function saveOrder() {
         row.insertCell(6).textContent = status;
 
         const actions = row.insertCell(7);
+
         actions.innerHTML =
             '<button class="edit-button" onclick="editOrder(this)">Редагувати</button>' +
             '<button class="delete-button" onclick="deleteOrder(this)">❌</button>';
     }
 
+    saveData();
     clearOrderForm();
 }
 
@@ -250,10 +267,13 @@ function editOrder(button) {
     document.getElementById('orderClient').value = row.cells[1].textContent;
     document.getElementById('orderProduct').value = row.cells[2].textContent;
     document.getElementById('orderQuantity').value = row.cells[3].textContent;
+
     document.getElementById('orderSum').value =
         row.cells[4].textContent.replace(' грн', '');
+
     document.getElementById('orderDate').value =
         dateForInput(row.cells[5].textContent);
+
     document.getElementById('orderStatus').value = row.cells[6].textContent;
 
     document.getElementById('orderButton').textContent = 'Зберегти зміни';
@@ -262,7 +282,9 @@ function editOrder(button) {
 
 function deleteOrder(button) {
     const row = button.closest('tr');
+
     row.remove();
+    saveData();
 }
 
 
@@ -279,11 +301,89 @@ function clearOrderForm() {
 
 function formatDate(date) {
     const parts = date.split('-');
+
     return parts[2] + '.' + parts[1] + '.' + parts[0];
 }
 
 
 function dateForInput(date) {
     const parts = date.split('.');
+
     return parts[2] + '-' + parts[1] + '-' + parts[0];
+}
+
+
+function saveData() {
+    const data = {
+        products: document.getElementById('productsTable').innerHTML,
+        clients: document.getElementById('clientsTable').innerHTML,
+        orders: document.getElementById('ordersTable').innerHTML
+    };
+
+    localStorage.setItem('internetShopData', JSON.stringify(data));
+}
+
+
+function loadData() {
+    const savedData = localStorage.getItem('internetShopData');
+
+    if (savedData) {
+        const data = JSON.parse(savedData);
+
+        document.getElementById('productsTable').innerHTML = data.products;
+        document.getElementById('clientsTable').innerHTML = data.clients;
+        document.getElementById('ordersTable').innerHTML = data.orders;
+     }
+
+    updateOrderSelects();
+}
+window.addEventListener('load', loadData);
+
+
+window.addEventListener('storage', function(event) {
+    if (event.key === 'internetShopData') {
+        loadData();
+    }
+});
+
+function updateOrderSelects() {
+    const clientSelect = document.getElementById('orderClient');
+    const productSelect = document.getElementById('orderProduct');
+
+    const currentClient = clientSelect.value;
+    const currentProduct = productSelect.value;
+
+    clientSelect.innerHTML = '<option value="">Оберіть клієнта</option>';
+    productSelect.innerHTML = '<option value="">Оберіть товар</option>';
+
+    const clientRows = document.querySelectorAll('#clientsTable tr');
+
+    clientRows.forEach(function(row) {
+        if (row.cells[1] && row.cells[0].textContent !== 'ID') {
+            const name = row.cells[1].textContent;
+
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+
+            clientSelect.appendChild(option);
+        }
+    });
+
+    const productRows = document.querySelectorAll('#productsTable tr');
+
+    productRows.forEach(function(row) {
+        if (row.cells[1] && row.cells[0].textContent !== 'ID') {
+            const name = row.cells[1].textContent;
+
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+
+            productSelect.appendChild(option);
+        }
+    });
+
+    clientSelect.value = currentClient;
+    productSelect.value = currentProduct;
 }
